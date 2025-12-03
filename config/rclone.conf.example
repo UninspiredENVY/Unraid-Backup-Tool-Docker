@@ -1,0 +1,13 @@
+# Example rclone config. Copy this file to /mnt/user/appdata/unraid-backup-tool/rclone.conf
+# and configure your remotes using `rclone config`.
+
+[google]
+type = drive
+scope = drive
+token = {...}
+
+[onedrive]
+type = onedrive
+token = {...}
+drive_id = ...
+drive_type = business
