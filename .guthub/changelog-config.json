@@ -1,1 +1,32 @@
-
+{
+  "categories": [
+    {
+      "title": "\ud83d\ude80 Features",
+      "keys": [
+        "feat"
+      ]
+    },
+    {
+      "title": "\ud83d\udc1b Fixes",
+      "keys": [
+        "fix"
+      ]
+    },
+    {
+      "title": "\ud83e\uddf9 Maintenance",
+      "keys": [
+        "chore",
+        "refactor"
+      ]
+    },
+    {
+      "title": "\u26a0\ufe0f Breaking Changes",
+      "keys": [
+        "BREAKING CHANGE"
+      ]
+    }
+  ],
+  "template": "${{CHANGELOG}}",
+  "pr_template": "- ${{TITLE}}",
+  "empty_template": "- No user-facing changes."
+}
