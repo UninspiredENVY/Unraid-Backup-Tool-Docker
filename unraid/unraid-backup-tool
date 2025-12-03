@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Unraid-Backup-Tool</Name>
+  <Repository>uninspiredenvy/unraid-backup-tool</Repository>
+  <Registry>https://hub.docker.com/r/uninspiredenvy/unraid-backup-tool</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/UninspiredENVY/Unraid-Backup-Tool/issues</Support>
+  <Project>https://github.com/UninspiredENVY/Unraid-Backup-Tool</Project>
+  <Category>Backup:System</Category>
+  <Overview>
+    <![CDATA[
+    <h2>Unraid Backup Tool</h2>
+    <p>
+      A fully containerized backup utility for Unraid with:
+    </p>
+    <ul>
+      <li>Multi-source backup</li>
+      <li>Local timestamped backups with retention</li>
+      <li>Parallel rclone cloud sync</li>
+      <li>Discord notifications</li>
+      <li>No dependence on Unraid plugins</li>
+    </ul>
+    ]]>
+  </Overview>
+  <Description>
+    <![CDATA[
+    Configure all behavior via environment variables.  
+    Run on a schedule using Unraid's Docker Scheduler.
+    ]]>
+  </Description>
+  <Environment>
+    <Variable>
+      <Name>DISCORD_WEBHOOK</Name>
+      <Value></Value>
+      <Description>Discord webhook URL for notifications</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>SOURCE_PATHS</Name>
+      <Value>/source</Value>
+      <Description>Comma-separated list of source paths inside container. Mount matching volumes.</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>DEST_PATH</Name>
+      <Value>/dest</Value>
+      <Description>Destination path for local backups inside container.</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>CLOUD_DESTS</Name>
+      <Value></Value>
+      <Description>Comma-separated rclone cloud remotes, e.g. google:unraid,onedrive:Backups/unraid</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>EXCLUDES</Name>
+      <Value>Media/**,Cache/**,Metadata/**</Value>
+      <Description>Comma-separated rclone exclude patterns.</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>MIN_FREE_GB</Name>
+      <Value>10</Value>
+      <Description>Minimum free GB required in DEST_PATH.</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>KEEP_LOCAL</Name>
+      <Value>7</Value>
+      <Description>Number of local backups to retain.</Description>
+      <Type>Variable</Type>
+    </Variable>
+    <Variable>
+      <Name>TZ</Name>
+      <Value>America/Chicago</Value>
+      <Description>Timezone for logs and timestamps.</Description>
+      <Type>Variable</Type>
+    </Variable>
+  </Environment>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/unraid-backup-tool</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+      <Description>Config directory (rclone.conf, etc.)</Description>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/Plex-Media-Server</HostDir>
+      <ContainerDir>/source</ContainerDir>
+      <Mode>rw</Mode>
+      <Description>Main backup source directory.</Description>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/backups/Cyberdyne/Plex</HostDir>
+      <ContainerDir>/dest</ContainerDir>
+      <Mode>rw</Mode>
+      <Description>Local backup destination directory.</Description>
+    </Volume>
+  </Data>
+</Container>
